@@ -1,0 +1,24 @@
+{
+  "name": "foursquare",
+  "description": "Foursquare venues api client",
+  "version": "0.0.1",
+  "contributors": [
+    "Christohe Popov <chrpopov@gmail.com>"
+  ],
+  "private": true,
+  "repository": "",
+  "license": "Copyright Reserved",
+  "dependencies": {
+  },
+
+  "devDependencies": {
+
+  },
+  "scripts": {
+
+  },
+  "engine": "node >= 0.8.0"
+}
+
+
+
