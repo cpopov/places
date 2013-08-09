@@ -1,17 +1,17 @@
 var https = require('https'),
     querystring = require('querystring');
 
-module.exports = function(appId,secretKey){
+module.exports = function(appId){
 
     function request(method, path, callback){
         var requestOptions,
             req;
 
         requestOptions = {
-            host: "api.foursquare.com",
+            host: "maps.googleapis.com",
             method: method,
             port: 443,
-            path: "/v2"+path,
+            path: "/maps/api/place"+path,
             headers: {
                 'Accept': 'text/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -43,14 +43,14 @@ module.exports = function(appId,secretKey){
                     response = JSON.parse(response);
                 } catch(e) {
                     err = 500;
-                    response = "Foursquare did not return JSON";
+                    response = "Google did not return JSON";
                 };
                 return callback(err, response);
             });
         });
     }
 
-    function buildQuery(path, appId, secretKey, obj) {
+    function buildQuery(path, appId, obj) {
         var requestData;
 
         if(obj){
@@ -59,20 +59,21 @@ module.exports = function(appId,secretKey){
         } else {
             path += '?';
         };
-        return path+'client_id='+appId+'&client_secret='+secretKey+'&v=20130708';
+        return path+'key='+appId;
     }
 
 
-
-
-
     return {
-        venue : function(venueId, callback){
-            request('GET',buildQuery('/venues/'+venueId, appId, secretKey), callback);
+        details : function(reference, callback){
+            request('GET',buildQuery('/details/json', appId, {reference:reference, sensor:false}), callback);
         },
 
         search : function(ll, callback){
-            request('GET',buildQuery('/venues/search', appId, secretKey, {ll:ll, radius:10000, intent: "browse", limit: 100000}), callback);
+            request('GET',buildQuery('/nearbysearch/json', appId, {location:ll, radius:10000, sensor:false}), callback);
+        },
+        
+        searchPage : function(ll, pagetoken, callback){
+            request('GET',buildQuery('/nearbysearch/json', appId, {location:ll, radius:10000, sensor:false, pagetoken:pagetoken}), callback);
         }
     };
 };

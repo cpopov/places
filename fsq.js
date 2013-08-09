@@ -1,6 +1,9 @@
-#!/usr/bin/env node
+var appKey = process.argv[2];
+var userKey = process.argv[3];
+var ll = process.argv[4];
 
-var foursquare = require('./foursquare.js')('', '');
+var foursquare = require('./foursquare.js')(appKey, userKey);
+
 
 function printCSVHeader() {
     console.log("Name, Lat, Lng, Address, Postal code, City, Category1 ");
@@ -22,7 +25,7 @@ function printCSVVenue(venue) {
 
 
 printCSVHeader();
-foursquare.search(41.0128,28.9744, function(err, response) {
+foursquare.search(ll, function(err, response) {
     response.response.venues.forEach(printCSVVenue);
 });
 
