@@ -3,6 +3,21 @@ places
 
 Node.js app to get location data from Google places, Foursquare and others
 
+Usage:
+
+For Google Places API:
+
+node gplaces [appId] [lat,lon] [number]
+
+- appId the appId obtained from google
+- lat,lon the the location
+- number otpional
+
+For foursquare Venues API:
+
+node fsq [appId] [userKey] [lat,lon]
+
+
 
 Foursqure venues:
 -----------------
@@ -12,8 +27,7 @@ Details API
 -----------
 https://api.foursquare.com/v2/venues/42377700f964a52024201fe3?client_id=[]&client_secret=[]&v=20130708
 
-
-Istanbul: ll=41.0128,28.9744
+ll represents lat,lon coordinates. Example: Istanbul: ll=41.0128,28.9744.
 
 
 Google places
